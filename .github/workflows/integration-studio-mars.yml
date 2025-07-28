@@ -58,7 +58,7 @@ on:
 
 jobs:
   deploy-scripts:
-    uses: .github/workflows/deploy-jmeter-script.yml@main
+    uses: meer1616/actions-workflow-mars-test/.github/workflows/deploy-jmeter-script.yml@main
     with:
       jmeter-test-node: ${{ github.event.inputs.jmeter-test-node }}
       jmeter-test-path: ${{ github.event.inputs.jmeter-test-path }}
@@ -68,7 +68,7 @@ jobs:
       login-password: ${{ secrets.LOGIN_PASSWORD }}
 
   run-integrationstudio-test:
-    uses: .github/workflows/integration-studio-ecksso-load.yml@main
+    uses: meer1616/actions-workflow-mars-test/.github/workflows/integration-studio-ecksso-load.yml@main
     needs: deploy-scripts
     with:
       env_name: ${{ github.event.inputs.env_name }}
