@@ -1,0 +1,45 @@
+name: Client DB Backfills
+
+on:
+  workflow_dispatch:
+    inputs:
+      INP_ClientName:
+        description: 'Client Name'
+        required: true
+        default: 'Ecksso'
+      DbName:
+        description: 'Database client name'
+        required: true
+        default: 'ecksso'
+      SQLServer:
+        description: 'SQL Server Instance'
+        required: true
+        default: 'azg5marsql01a.custadds.com'
+      siteName:
+        description: 'Site Code Name'
+        required: true
+        default: 'neomars'
+      GoldDBFileName:
+        description: 'GoldDB File Name'
+        required: true
+        default: 'ecksso_neomars.bak'
+      
+
+jobs:
+  run-powershell:
+    runs-on: [self-hosted, performance-engineering]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: DB Backfill for TestDB
+        shell: pwsh
+        run: |
+          $INP_ClientName = '${{ github.event.inputs.INP_ClientName }}'
+          $DbName = '${{ github.event.inputs.DbName }}'
+          $SQLServer = '${{ github.event.inputs.SQLServer }}'
+          $siteName = '${{ github.event.inputs.siteName }}'
+          $GoldDBFileName = '${{ github.event.inputs.GoldDBFileName }}'
+          .\PowerShell\AzureDBBackfill\DBBackfill_Blob_Location.ps1 
+          DBBackfill -DbName $DbName -ServerName $SQLServer -SiteCodeName $siteName -GoldDBFileName $GoldDBFileName -IsAzureDB $true -DBUpgradeOnly $true -INP_ClientName $INP_ClientName

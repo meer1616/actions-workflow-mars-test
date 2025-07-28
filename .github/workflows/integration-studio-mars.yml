@@ -1,0 +1,91 @@
+name: Integration Studio Mars
+
+on:
+  workflow_dispatch: # Manual trigger for now
+    inputs:
+      jmeter-test-node:
+        description: "Target JMeter machine $JmeterTestingSingleNode"
+        required: true
+        type: string
+        default: "azg5perftag001.CUSTADDS.com"
+      jmeter-test-path:
+        description: "Path to the JMeter test files $JmeterTestPath"
+        required: true
+        type: string
+        default: 'JMeterTests\src\jmeter'
+      powershell-path:
+        description: "Path to PowerShell scripts $PowershellPath"
+        required: true
+        type: string
+        default: "PowerShell"
+      login-user:
+        description: "Remote login username $LoginUserCustadds"
+        required: true
+        type: string
+        default: 'CUSTADDS.com\G9PERFTSTSVC'
+      env_name:
+        description: "Environment name $Envname"
+        required: true
+        type: string
+        default: "mars"
+      is-automation:
+        description: "Is this an automation run? (true/false) $IsAutomation"
+        required: true
+        type: boolean
+        default: true
+      is-scheduled:
+        description: "Is this a scheduled run? (true/false) $IsScheduled"
+        required: true
+        type: boolean
+        default: false
+        # should ne be editable during manually
+        # should be true when scheduled
+      pwsh:
+        description: "Path to PowerShell executable $pwsh"
+        required: true
+        type: string
+        default: 'C:\Program Files\PowerShell\7\pwsh'
+      company-name:
+        description: "Enter Company name. Eckssohr21 for Mars, Eckssohr26 for Jupiter"
+        required: true
+        type: string
+        default: "Eckssohr21"
+      load_test_name:
+        description: "Enter load test name"
+        required: true
+        type: string
+        default: "IntegrationStudio_ECKSSO_LOAD"
+
+jobs:
+  deploy-scripts:
+    uses: DayforceGlobal/perfeng-performancetesting/.github/workflows/deploy-jmeter-script.yml@main
+    with:
+      jmeter-test-node: ${{ github.event.inputs.jmeter-test-node }}
+      jmeter-test-path: ${{ github.event.inputs.jmeter-test-path }}
+      powershell-path: ${{ github.event.inputs.powershell-path }}
+      login-user: ${{ github.event.inputs.login-user }}
+    secrets:
+      login-password: ${{ secrets.LOGIN_PASSWORD }}
+
+  run-integrationstudio-test:
+    uses: DayforceGlobal/perfeng-performancetesting/.github/workflows/integration-studio-ecksso-load.yml@main
+    needs: deploy-scripts
+    with:
+      env_name: ${{ github.event.inputs.env_name }}
+      is-automation: ${{ github.event.inputs.is-automation }}
+      is-scheduled: ${{ github.event.inputs.is-scheduled }}
+      pwsh: ${{ github.event.inputs.pwsh }}
+      company-name: ${{ github.event.inputs.company-name }}
+
+  # trigger-metrics:
+  #   uses: DayforceGlobal/perfeng-performancetesting/.github/workflows/save-infra-metrics.yml@main
+  #   needs:
+  #     - deploy-scripts
+  #     - run-integrationstudio-test
+  #   with:
+  #     env_name: ${{ github.event.inputs.env_name }}
+  #     load_test_name: ${{ github.event.inputs.load_test_name }}
+# LOGIN_PASSWORD in secret
+# uses kebab case --> done
+# make integration studio more dynamics
+# no need to use by github api just call the workflow in save-infra-metrics.yml  --> done

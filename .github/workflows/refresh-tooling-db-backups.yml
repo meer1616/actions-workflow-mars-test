@@ -1,0 +1,35 @@
+name: Refresh Tooling DB Backups
+
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 22 * * 0' # 10 PM EST , every Sunday
+
+jobs:
+  run-powershell:
+    runs-on: [self-hosted, performance-engineering]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run DBBackUpRefresh.ps1 for Bifrost
+        shell: pwsh
+        run: |
+          .\PowerShell\AzureDBBackfill\DBBackUpRefresh.ps1 `
+            BackupRefresh `
+            -bakFileName 'bifrost.bak' `
+            -client 'bifrost' `
+            -databaseName 'bifrost' `
+            -sqlServerInstance 'azg5galsql03a.custadds.com' `
+
+      - name: Run DBBackUpRefresh.ps1 for JMeterAuto
+        shell: pwsh
+        run: |
+          .\PowerShell\AzureDBBackfill\DBBackUpRefresh.ps1 `
+            BackupRefresh `
+            -bakFileName 'JMeterAuto.bak' `
+            -client 'JMeterAuto' `
+            -databaseName 'JMeterAuto' `
+            -sqlServerInstance 'azg5galsql03a.custadds.com' `

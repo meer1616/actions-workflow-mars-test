@@ -1,0 +1,30 @@
+name: Save Test Results
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 11 * * *" # 7 AM EST (11:00 UTC), every day
+
+jobs:
+  run-powershell:
+    runs-on: [self-hosted, performance-engineering]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Save neomars results
+        shell: pwsh
+        run: ./PowerShell/Jmeter/save-test-results.ps1 -site 'neomars'
+
+      - name: Save neojupiter results
+        shell: pwsh
+        run: ./PowerShell/Jmeter/save-test-results.ps1 -site 'neojupiter'
+
+      - name: Save mars results
+        shell: pwsh
+        run: ./PowerShell/Jmeter/save-test-results.ps1 -site 'mars'
+
+      - name: Save jupiter results
+        shell: pwsh
+        run: ./PowerShell/Jmeter/save-test-results.ps1 -site 'jupiter'

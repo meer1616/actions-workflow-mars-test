@@ -1,0 +1,42 @@
+name: DB Backup Refresh
+
+on:
+  workflow_dispatch:
+    inputs:
+      bakFileName:
+        description: 'Backup file name'
+        required: true
+        default: 'TestDB_name.bak'
+      client:
+        description: 'Client name'
+        required: true
+        default: 'TestDB'
+      databaseName:
+        description: 'Database name'
+        required: true
+        default: 'TestDB'
+      sqlServerInstance:
+        description: 'SQL Server instance'
+        required: true
+        default: 'azg5marsql01a.custadds.com'
+
+jobs:
+  run-powershell:
+    runs-on: [self-hosted, performance-engineering]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run DBBackUpRefresh.ps1 for Test DB
+        shell: pwsh
+        run: |
+          $bakFileName = '${{ github.event.inputs.bakFileName }}'
+          $client = '${{ github.event.inputs.client }}'
+          $databaseName = '${{ github.event.inputs.databaseName }}'
+          $sqlServerInstance = '${{ github.event.inputs.sqlServerInstance }}'
+          .\PowerShell\AzureDBBackfill\DBBackUpRefresh.ps1 `
+            -bakFileName $bakFileName `
+            -client $client `
+            -databaseName $databaseName `
+            -sqlServerInstance $sqlServerInstance `

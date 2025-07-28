@@ -1,0 +1,87 @@
+##### PerfEng - PerformanceTesting
+
+# JMeterLog
+jmeter.log
+
+# Java
+*.class
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# Gradle
+.gradle
+/build/
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring gradle wrapper jar file
+!gradle-wrapper.jar
+
+# Cache of project
+.gradletasknamecache
+
+##### End
+
+.vs*
+.idea
+[Bb]in
+[Oo]bj
+TestResult*
+_ReSharper*
+packages
+ClientBin
+_UpgradeReport_Files
+$tf
+.sonar*
+*.ruleset
+*.binlog
+*.map
+/Tools/DfVersioning/BuildInfo.cs
+/AssemblyInfo.cs
+Thumbs.db
+Desktop.ini
+.DS_Store
+.timestamp_3ba3a385b04045cca0a657ed01ad43aa
+__typeScriptArgs.txt
+*-main.upgraded
+gc-build-in-progress
+
+*.g.cs
+*.g.cs.temp
+*.user
+BuildLog.*
+UpgradeLog*.XML
+UpgradeLog*.htm
+*.ReSharper
+*.DotSettings.user
+~$*
+*~
+*.exe
+*.dll
+*.pdb
+*.vspscc
+*.vssscc
+*.args.json
+
+
+# java script
+config.js
+JMeterTests/JavaScript/mongoDB/node_modules/
+*.crt
+
+FodyWeavers.xsd
+/Engines/Output
+/DataManagerEx
+/bin.*
+/Engines/**/app/publish
+
+
+JMeterTests/Plugins/GroovyPlugin/libs/*
+JMeterTests/Plugins/GroovyPlugin/build/*
+JMeterTests/Plugins/GroovyPlugin/resouces/*
+JMeterTests/Plugins/GroovyPlugin/src/**/temp*
+*.env
