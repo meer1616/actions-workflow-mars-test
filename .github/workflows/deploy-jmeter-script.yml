@@ -31,6 +31,10 @@ jobs:
         shell: pwsh
         run: |
           Write-Host "Deploying JMeter scripts to ${{ inputs.jmeter-test-node }}"
+          Write-Host "Jmeter test path to ${{ inputs.jmeter-test-path }}"
+          Write-Host "Powershell path  ${{ inputs.powershell-path }}"
+          Write-Host "Login user ${{ inputs.login-user }}"
+          Write-Host "Secret login password ${{ secrets.login-password }}"
           $arguments = @(
             '-Servers', "${{ inputs.jmeter-test-node }}",
             '-JmeterTestPath', "${{ inputs.jmeter-test-path }}",
