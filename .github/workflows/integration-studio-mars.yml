@@ -28,22 +28,32 @@ on:
         required: true
         type: string
         default: "mars"
+      # is-automation:
+      #   description: "Is this an automation run? (true/false) $IsAutomation"
+      #   required: true
+      #   type: choice
+      #   options:
+      #     - "true"
+      #     - "false"
+      #   default: "true"
+      # is-scheduled:
+      #   description: "Is this a scheduled run? (true/false) $IsScheduled"
+      #   required: true
+      #   type: choice
+      #   options:
+      #     - "true"
+      #     - "false"
+      #   default: "false"
       is-automation:
-        description: "Is this an automation run? (true/false) $IsAutomation"
+        description: "Is this an automation run? (true/false)"
         required: true
-        type: choice
-        options:
-          - "true"
-          - "false"
-        default: "true"
+        type: boolean
+        default: true
       is-scheduled:
-        description: "Is this a scheduled run? (true/false) $IsScheduled"
+        description: "Is this a scheduled run? (true/false)"
         required: true
-        type: choice
-        options:
-          - "true"
-          - "false"
-        default: "false"
+        type: boolean
+        default: false
       pwsh:
         description: "Path to PowerShell executable $pwsh"
         required: true
