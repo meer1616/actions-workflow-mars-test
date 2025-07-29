@@ -32,12 +32,12 @@ on:
         description: "Is this an automation run? (true/false) $IsAutomation"
         required: true
         type: boolean
-        default: true
+        default: "true"
       is-scheduled:
         description: "Is this a scheduled run? (true/false) $IsScheduled"
         required: true
         type: boolean
-        default: false
+        default: "false"
         # should ne be editable during manually
         # should be true when scheduled
       pwsh:
