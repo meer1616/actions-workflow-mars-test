@@ -76,8 +76,8 @@ jobs:
     uses: meer1616/actions-workflow-mars-test/.github/workflows/integration-studio-ecksso-load.yml@main
     with:
       env_name: ${{ github.event.inputs.env_name }}
-      is-automation: ${{ github.event.inputs.is-automation }}
-      is-scheduled: ${{ github.event.inputs.is-scheduled }}
+      is-automation: ${{ fromJSON(github.event.inputs.is-automation) }}
+      is-scheduled: ${{ fromJSON(github.event.inputs.is-scheduled) }}
       pwsh: ${{ github.event.inputs.pwsh }}
       company-name: ${{ github.event.inputs.company-name }}
 
