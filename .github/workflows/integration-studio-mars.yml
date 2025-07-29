@@ -33,17 +33,17 @@ on:
         required: true
         type: choice
         options:
-          - true
-          - false
-        default: true
+          - "true"
+          - "false"
+        default: "true"
       is-scheduled:
         description: "Is this a scheduled run? (true/false) $IsScheduled"
         required: true
         type: choice
         options:
-          - true
-          - false
-        default: false
+          - "true"
+          - "false"
+        default: "false"
       pwsh:
         description: "Path to PowerShell executable $pwsh"
         required: true
