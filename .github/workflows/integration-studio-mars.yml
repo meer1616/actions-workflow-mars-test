@@ -31,12 +31,12 @@ on:
       is-automation:
         description: "Is this an automation run? (true/false) $IsAutomation"
         required: true
-        type: boolean
+        # type: boolean
         default: "true"
       is-scheduled:
         description: "Is this a scheduled run? (true/false) $IsScheduled"
         required: true
-        type: boolean
+        # type: boolean
         default: "false"
       pwsh:
         description: "Path to PowerShell executable $pwsh"
