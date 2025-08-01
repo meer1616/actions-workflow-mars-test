@@ -30,7 +30,7 @@ jobs:
       - name: Run IntegrationStudio_ECKSSO_LOAD
         shell: pwsh
         run: |
-          Write-Host "Running IntegrationStudio_ECKSSO_LOAD test for environment: ${{ github.workspace }}"
+          Write-Host "Running IntegrationStudio_ECKSSO_LOAD test for environment jupiter: ${{ github.workspace }}"
           $pwshPath = "${{ inputs.pwsh }}"
           $jmeterFile = "HR\\Main\\BJE\\IntegrationStudio_ECKSSO_LOAD.jmx"
           $envName = "${{ inputs.env_name }}"
