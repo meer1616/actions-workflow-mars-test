@@ -18,10 +18,14 @@ on:
       company-name:
         required: true
         type: string
-
+      runner-label:
+        required: true
+        type: string
 jobs:
   run-jmeter-test:
-    runs-on: [self-hosted, windows]
+    runs-on:
+      - self-hosted
+      - ${{ inputs.runner-label }}
 
     steps:
       # - name: Checkout repository
