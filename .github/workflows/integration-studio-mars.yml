@@ -7,12 +7,12 @@ on:
         description: "Self-hosted runner label for this env"
         required: true
         type: string
-        default: "self-hosted-mars"
-      branch-name:
-        description: "Branch name to use for workflow logic"
-        required: true
-        type: string
-        default: "main"
+        default: "windows"
+      # branch-name:
+      #   description: "Branch name to use for workflow logic"
+      #   required: true
+      #   type: string
+      #   default: "main"
       jmeter-test-node:
         description: "Target JMeter machine $JmeterTestingSingleNode"
         required: true
@@ -58,11 +58,11 @@ on:
         required: true
         type: string
         default: "Eckssohr21"
-      load_test_name:
-        description: "Enter load test name"
-        required: true
-        type: string
-        default: "IntegrationStudio_ECKSSO_LOAD"
+      # load_test_name:
+      #   description: "Enter load test name"
+      #   required: true
+      #   type: string
+      #   default: "IntegrationStudio_ECKSSO_LOAD"
 
 jobs:
   deploy-scripts:
