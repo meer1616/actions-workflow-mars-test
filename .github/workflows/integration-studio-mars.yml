@@ -67,7 +67,7 @@ on:
 jobs:
   deploy-scripts:
     if: ${{ github.event.inputs.env_name == 'mars' }}
-    uses: DayforceGlobal/perfeng-performancetesting/.github/workflows/deploy-jmeter-script.yml@main
+    uses: meer1616/actions-workflow-mars-test/.github/workflows/deploy-jmeter-script.yml@main
     with:
       jmeter-test-node: ${{ inputs.jmeter-test-node }}
       jmeter-test-path: ${{ inputs.jmeter-test-path }}
@@ -91,7 +91,7 @@ jobs:
 
   deploy-scripts-jupiter:
     if: ${{ github.event.inputs.env_name == 'jupiter' }}
-    uses: DayforceGlobal/perfeng-performancetesting/.github/workflows/deploy-jmeter-script.yml@jupiter
+    uses: meer1616/actions-workflow-mars-test/.github/workflows/deploy-jmeter-script.yml@jupiter
     with:
       jmeter-test-node: ${{ inputs.jmeter-test-node }}
       jmeter-test-path: ${{ inputs.jmeter-test-path }}
