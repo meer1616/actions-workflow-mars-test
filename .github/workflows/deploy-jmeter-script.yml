@@ -15,13 +15,16 @@ on:
       login-user:
         required: true
         type: string
+      runner-label:
+        required: true
+        type: string
     secrets:
       login-password:
         required: true
 
 jobs:
   deploy-jmeter:
-    runs-on: [self-hosted, windows]
+    runs-on: ${{ inputs.runner-label }}
 
     steps:
       - name: Checkout repository
