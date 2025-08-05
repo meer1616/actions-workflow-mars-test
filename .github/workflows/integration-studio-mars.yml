@@ -103,7 +103,7 @@ jobs:
 
   run-integrationstudio-test-jupiter:
     if: ${{ github.event.inputs.env_name == 'jupiter' }}
-    needs: deploy-scripts
+    needs: deploy-scripts-jupiter
     uses: meer1616/actions-workflow-mars-test/.github/workflows/integration-studio-ecksso-load.yml@jupiter
     with:
       env_name: ${{ github.event.inputs.env_name }}
@@ -121,3 +121,4 @@ jobs:
   #   with:
   #     env_name: ${{ github.event.inputs.env_name }}
   #     load_test_name: ${{ github.event.inputs.load_test_name }}
+
