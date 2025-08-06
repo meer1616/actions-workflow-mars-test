@@ -1,123 +1,83 @@
-name: Integration Studio Mars
+name: Integration Studio Workflow
 
 on:
   workflow_dispatch:
     inputs:
       runner-label:
-        description: "Self-hosted runner label for this env"
         required: true
         type: string
         default: "windows"
-      # branch-name:
-      #   description: "Branch name to use for workflow logic"
-      #   required: true
-      #   type: string
-      #   default: "main"
       jmeter-test-node:
-        description: "Target JMeter machine $JmeterTestingSingleNode"
         required: true
         type: string
         default: "azg5perftag001.CUSTADDS.com"
       jmeter-test-path:
-        description: "Path to the JMeter test files $JmeterTestPath"
         required: true
         type: string
         default: "JMeterTests\\src\\jmeter"
       powershell-path:
-        description: "Path to PowerShell scripts $PowershellPath"
         required: true
         type: string
         default: "PowerShell"
       login-user:
-        description: "Remote login username $LoginUserCustadds"
         required: true
         type: string
         default: "CUSTADDS.com\\G9PERFTSTSVC"
       env_name:
-        description: "Environment name $Envname"
         required: true
         type: string
         default: "mars"
       is-automation:
-        description: "Is this an automation run? (true/false)"
         required: true
         type: boolean
         default: true
       is-scheduled:
-        description: "Is this a scheduled run? (true/false)"
         required: true
         type: boolean
         default: false
       pwsh:
-        description: "Path to PowerShell executable $pwsh"
         required: true
         type: string
         default: "C:\\Program Files\\PowerShell\\7\\pwsh"
       company-name:
-        description: "Enter Company name. Eckssohr21 for Mars, Eckssohr26 for Jupiter"
         required: true
         type: string
         default: "Eckssohr21"
-      # load_test_name:
-      #   description: "Enter load test name"
-      #   required: true
-      #   type: string
-      #   default: "IntegrationStudio_ECKSSO_LOAD"
 
 jobs:
   deploy-scripts:
-    if: ${{ github.event.inputs.env_name == 'mars' }}
-    uses: meer1616/actions-workflow-mars-test/.github/workflows/integration-studio/deploy-jmeter-script.yml@main
-    with:
-      jmeter-test-node: ${{ inputs.jmeter-test-node }}
-      jmeter-test-path: ${{ inputs.jmeter-test-path }}
-      powershell-path: ${{ inputs.powershell-path }}
-      login-user: ${{ inputs.login-user }}
-      runner-label: ${{ inputs.runner-label }}
-    secrets:
-      login-password: ${{ secrets.LOGIN_PASSWORD }}
+    runs-on: ${{ inputs.runner-label }}
+    steps:
+      - name: Checkout correct branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.env_name == 'mars' && 'main' || 'jupiter' }}
+
+      - name: Deploy JMeter Scripts
+        uses: ./.github/actions/deploy-jmeter
+        with:
+          jmeter-test-node: ${{ inputs.jmeter-test-node }}
+          jmeter-test-path: ${{ inputs.jmeter-test-path }}
+          powershell-path: ${{ inputs.powershell-path }}
+          login-user: ${{ inputs.login-user }}
+          login-password: ${{ secrets.LOGIN_PASSWORD }}
+          runner-label: ${{ inputs.runner-label }}
 
   run-integrationstudio-test:
-    if: ${{ github.event.inputs.env_name == 'mars' }}
+    runs-on: ${{ inputs.runner-label }}
     needs: deploy-scripts
-    uses: meer1616/actions-workflow-mars-test/.github/workflows/integration-studio/integration-studio-ecksso-load.yml@main
-    with:
-      env_name: ${{ github.event.inputs.env_name }}
-      is-automation: ${{ fromJSON(github.event.inputs.is-automation) }}
-      is-scheduled: ${{ fromJSON(github.event.inputs.is-scheduled) }}
-      pwsh: ${{ github.event.inputs.pwsh }}
-      company-name: ${{ github.event.inputs.company-name }}
-      runner-label: ${{ github.event.inputs.runner-label }}
+    steps:
+      - name: Checkout correct branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.env_name == 'mars' && 'main' || 'jupiter' }}
 
-  deploy-scripts-jupiter:
-    if: ${{ github.event.inputs.env_name == 'jupiter' }}
-    uses: meer1616/actions-workflow-mars-test/.github/workflows/integration-studio/deploy-jmeter-script.yml@jupiter
-    with:
-      jmeter-test-node: ${{ inputs.jmeter-test-node }}
-      jmeter-test-path: ${{ inputs.jmeter-test-path }}
-      powershell-path: ${{ inputs.powershell-path }}
-      login-user: ${{ inputs.login-user }}
-      runner-label: ${{ inputs.runner-label }}
-    secrets:
-      login-password: ${{ secrets.LOGIN_PASSWORD }}
-
-  run-integrationstudio-test-jupiter:
-    if: ${{ github.event.inputs.env_name == 'jupiter' }}
-    needs: deploy-scripts-jupiter
-    uses: meer1616/actions-workflow-mars-test/.github/workflows/integration-studio/integration-studio-ecksso-load.yml@jupiter
-    with:
-      env_name: ${{ github.event.inputs.env_name }}
-      is-automation: ${{ fromJSON(github.event.inputs.is-automation) }}
-      is-scheduled: ${{ fromJSON(github.event.inputs.is-scheduled) }}
-      pwsh: ${{ github.event.inputs.pwsh }}
-      company-name: ${{ github.event.inputs.company-name }}
-      runner-label: ${{ github.event.inputs.runner-label }}
-
-  # trigger-metrics:
-  #   needs:
-  #     - deploy-scripts
-  #     - run-integrationstudio-test
-  #   uses: DayforceGlobal/perfeng-performancetesting/.github/workflows/save-infra-metrics.yml@main
-  #   with:
-  #     env_name: ${{ github.event.inputs.env_name }}
-  #     load_test_name: ${{ github.event.inputs.load_test_name }}
+      - name: Run JMeter Test
+        uses: ./.github/actions/integration-studio-ecksso-load
+        with:
+          env_name: ${{ inputs.env_name }}
+          is-automation: ${{ inputs.is-automation }}
+          is-scheduled: ${{ inputs.is-scheduled }}
+          pwsh: ${{ inputs.pwsh }}
+          company-name: ${{ inputs.company-name }}
+          runner-label: ${{ inputs.runner-label }}

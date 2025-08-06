@@ -52,4 +52,3 @@ jobs:
         continue-on-error: true
 # for mars DeployJmeterScript should be from main branch and for jupiter it should be from another branch
 
-
