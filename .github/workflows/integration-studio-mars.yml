@@ -74,8 +74,8 @@ jobs:
       powershell-path: ${{ inputs.powershell-path }}
       login-user: ${{ inputs.login-user }}
       runner-label: ${{ inputs.runner-label }}
-    # secrets:
-    #   login-password: ${{ secrets.LOGIN_PASSWORD }}
+    secrets:
+      login-password: ${{ secrets.LOGIN_PASSWORD }}
 
   run-integrationstudio-test:
     if: ${{ github.event.inputs.env_name == 'mars' }}
@@ -121,5 +121,6 @@ jobs:
   #   with:
   #     env_name: ${{ github.event.inputs.env_name }}
   #     load_test_name: ${{ github.event.inputs.load_test_name }}
+
 
 
