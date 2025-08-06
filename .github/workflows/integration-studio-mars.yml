@@ -67,7 +67,7 @@ on:
 jobs:
   deploy-scripts:
     if: ${{ github.event.inputs.env_name == 'mars' }}
-    uses: meer1616/actions-workflow-mars-test/.github/workflows/deploy-jmeter-script.yml@main
+    uses: meer1616/actions-workflow-mars-test/.github/workflows/integration-studio/deploy-jmeter-script.yml@main
     with:
       jmeter-test-node: ${{ inputs.jmeter-test-node }}
       jmeter-test-path: ${{ inputs.jmeter-test-path }}
@@ -80,7 +80,7 @@ jobs:
   run-integrationstudio-test:
     if: ${{ github.event.inputs.env_name == 'mars' }}
     needs: deploy-scripts
-    uses: meer1616/actions-workflow-mars-test/.github/workflows/integration-studio-ecksso-load.yml@main
+    uses: meer1616/actions-workflow-mars-test/.github/workflows/integration-studio/integration-studio-ecksso-load.yml@main
     with:
       env_name: ${{ github.event.inputs.env_name }}
       is-automation: ${{ fromJSON(github.event.inputs.is-automation) }}
