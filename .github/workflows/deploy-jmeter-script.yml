@@ -18,9 +18,9 @@ on:
       runner-label:
         required: true
         type: string
-    secrets:
-      login-password:
-        required: true
+    # secrets:
+    #   login-password:
+    #     required: true
 
 jobs:
   deploy-jmeter:
@@ -37,7 +37,7 @@ jobs:
           Write-Host "Jmeter test path to ${{ inputs.jmeter-test-path }}"
           Write-Host "Powershell path  ${{ inputs.powershell-path }}"
           Write-Host "Login user ${{ inputs.login-user }}"
-          Write-Host "Secret login password ${{ secrets.login-password }}"
+          Write-Host "Secret login password ${{ secrets.LOGIN_PASSWORD }}"
           $arguments = @(
             '-Servers', "${{ inputs.jmeter-test-node }}",
             '-JmeterTestPath', "${{ inputs.jmeter-test-path }}",
@@ -51,3 +51,4 @@ jobs:
           Write-Host "JMeter scripts deployed mars successfully......."
         continue-on-error: true
 # for mars DeployJmeterScript should be from main branch and for jupiter it should be from another branch
+
