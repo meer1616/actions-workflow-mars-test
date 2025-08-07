@@ -23,7 +23,7 @@ runs:
     - name: Run IntegrationStudio JMeter Load
       shell: pwsh
       run: |
-        Write-Host "Running IntegrationStudio_ECKSSO_LOAD test on Jupiter actions"
+        Write-Host "Running IntegrationStudio_ECKSSO_LOAD test on mars actions"
         $jmeterFile = "HR\\Main\\BJE\\IntegrationStudio_ECKSSO_LOAD.jmx"
         $envName = "${{ inputs.env_name }}"
         $gitRoot = "${{ github.workspace }}"
