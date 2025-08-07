@@ -19,7 +19,6 @@ inputs:
   runner-label:
     required: true
     type: string
-secrets:
   login-password:
     required: true
     type: string
@@ -37,16 +36,16 @@ runs:
         Write-Host "Jmeter test path to ${{ inputs.jmeter-test-path }}"
         Write-Host "Powershell path  ${{ inputs.powershell-path }}"
         Write-Host "Login user ${{ inputs.login-user }}"
-        Write-Host "Secret login password ${{ secrets.login-password }}"
+        Write-Host "Secret login password ${{ inputs.login-password }}"
 
         $arguments = @(
           '-Servers', "${{ inputs.jmeter-test-node }}",
           '-JmeterTestPath', "${{ inputs.jmeter-test-path }}",
           '-PowershellPath', "${{ inputs.powershell-path }}",
           '-User', "${{ inputs.login-user }}",
-          '-Password', "${{ secrets.login-password }}"
+          '-Password', "${{ inputs.login-password }}"
         )
 
         & .\PowerShell\Jmeter\DeployJmeterScripts.ps1 @arguments
 
-        Write-Host "JMeter scripts deployed Jupiter actions successfully......."
+        Write-Host "JMeter scripts deployed mars action successfully......."
