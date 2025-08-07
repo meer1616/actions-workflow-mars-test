@@ -61,7 +61,6 @@ jobs:
           powershell-path: ${{ inputs.powershell-path }}
           login-user: ${{ inputs.login-user }}
           login-password: ${{ secrets.LOGIN_PASSWORD }}
-          runner-label: ${{ inputs.runner-label }}
 
   run-integrationstudio-test:
     runs-on: ${{ inputs.runner-label }}

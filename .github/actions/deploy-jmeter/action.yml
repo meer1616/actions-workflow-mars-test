@@ -16,9 +16,6 @@ inputs:
   login-user:
     required: true
     type: string
-  runner-label:
-    required: true
-    type: string
   login-password:
     required: true
     type: string
