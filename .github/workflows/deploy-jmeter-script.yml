@@ -1,0 +1,54 @@
+name: Deploy JMeter Scripts
+
+on:
+  workflow_call:
+    inputs:
+      jmeter-test-node:
+        required: true
+        type: string
+      jmeter-test-path:
+        required: true
+        type: string
+      powershell-path:
+        required: true
+        type: string
+      login-user:
+        required: true
+        type: string
+      runner-label:
+        required: true
+        type: string
+    secrets:
+      login-password:
+        required: true
+
+jobs:
+  deploy-jmeter:
+    runs-on: ${{ inputs.runner-label }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy JMeter scripts
+        shell: pwsh
+        run: |
+          Write-Host "Deploying JMeter scripts to ${{ inputs.jmeter-test-node }}"
+          Write-Host "Jmeter test path to ${{ inputs.jmeter-test-path }}"
+          Write-Host "Powershell path  ${{ inputs.powershell-path }}"
+          Write-Host "Login user ${{ inputs.login-user }}"
+          Write-Host "Secret login password ${{ secrets.login-password }}"
+          $arguments = @(
+            '-Servers', "${{ inputs.jmeter-test-node }}",
+            '-JmeterTestPath', "${{ inputs.jmeter-test-path }}",
+            '-PowershellPath', "${{ inputs.powershell-path }}",
+            '-User', "${{ inputs.login-user }}",
+            '-Password', "${{ secrets.login-password }}"
+          )
+
+          & .\PowerShell\Jmeter\DeployJmeterScripts.ps1 @arguments
+
+          Write-Host "JMeter scripts deployed mars successfully......."
+        continue-on-error: true
+# for mars DeployJmeterScript should be from main branch and for jupiter it should be from another branch
+

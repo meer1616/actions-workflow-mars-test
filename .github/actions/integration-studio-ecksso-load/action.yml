@@ -13,9 +13,6 @@ inputs:
   is-scheduled:
     required: true
     type: boolean
-  pwsh:
-    required: true
-    type: string
   company-name:
     required: true
     type: string
