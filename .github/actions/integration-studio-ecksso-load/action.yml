@@ -13,9 +13,6 @@ inputs:
   is-scheduled:
     required: true
     type: boolean
-  pwsh:
-    required: true
-    type: string
   company-name:
     required: true
     type: string
@@ -29,8 +26,7 @@ runs:
     - name: Run IntegrationStudio JMeter Load
       shell: pwsh
       run: |
-        Write-Host "Running IntegrationStudio_ECKSSO_LOAD test"
-        $pwshPath = "${{ inputs.pwsh }}"
+        Write-Host "Running IntegrationStudio_ECKSSO_LOAD test mars action"
         $jmeterFile = "HR\\Main\\BJE\\IntegrationStudio_ECKSSO_LOAD.jmx"
         $envName = "${{ inputs.env_name }}"
         $gitRoot = "${{ github.workspace }}"

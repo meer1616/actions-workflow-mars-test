@@ -35,10 +35,10 @@ on:
         required: true
         type: boolean
         default: false
-      pwsh:
+      branch:
         required: true
         type: string
-        default: "C:\\Program Files\\PowerShell\\7\\pwsh"
+        default: "main"
       company-name:
         required: true
         type: string
@@ -51,7 +51,7 @@ jobs:
       - name: Checkout correct branch
         uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.env_name == 'mars' && 'main' || 'jupiter' }}
+          ref: ${{ inputs.branch }}
 
       - name: Deploy JMeter Scripts
         uses: ./.github/actions/deploy-jmeter
@@ -70,7 +70,7 @@ jobs:
       - name: Checkout correct branch
         uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.env_name == 'mars' && 'main' || 'jupiter' }}
+          ref: ${{ inputs.branch }}
 
       - name: Run JMeter Test
         uses: ./.github/actions/integration-studio-ecksso-load
@@ -78,6 +78,5 @@ jobs:
           env_name: ${{ inputs.env_name }}
           is-automation: ${{ inputs.is-automation }}
           is-scheduled: ${{ inputs.is-scheduled }}
-          pwsh: ${{ inputs.pwsh }}
           company-name: ${{ inputs.company-name }}
           runner-label: ${{ inputs.runner-label }}
