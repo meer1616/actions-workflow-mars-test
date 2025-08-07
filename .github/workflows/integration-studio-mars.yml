@@ -78,4 +78,3 @@ jobs:
           is-automation: ${{ inputs.is-automation }}
           is-scheduled: ${{ inputs.is-scheduled }}
           company-name: ${{ inputs.company-name }}
-          runner-label: ${{ inputs.runner-label }}
