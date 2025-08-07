@@ -48,4 +48,4 @@ runs:
 
         & .\PowerShell\Jmeter\DeployJmeterScripts.ps1 @arguments
 
-        Write-Host "JMeter scripts deployed successfully......."
+        Write-Host "JMeter scripts deployed on Jupiter successfully......."

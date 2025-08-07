@@ -29,7 +29,7 @@ runs:
     - name: Run IntegrationStudio JMeter Load
       shell: pwsh
       run: |
-        Write-Host "Running IntegrationStudio_ECKSSO_LOAD test"
+        Write-Host "Running IntegrationStudio_ECKSSO_LOAD test on Jupiter actions"
         $pwshPath = "${{ inputs.pwsh }}"
         $jmeterFile = "HR\\Main\\BJE\\IntegrationStudio_ECKSSO_LOAD.jmx"
         $envName = "${{ inputs.env_name }}"
