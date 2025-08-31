@@ -3,8 +3,8 @@ name: Refresh Tooling DB Backups
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 22 * * 0' # 10 PM EST , every Sunday
+  # schedule:
+  #   - cron: '0 22 * * 0' # 10 PM EST , every Sunday
 
 jobs:
   run-powershell:
